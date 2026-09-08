@@ -2,7 +2,7 @@
 
 ## About Me
 
-Hi! I'm **Jomel A. Jaurigue**, 22 years old, from Pangasinan and currently taking **Information Technology** at the **University of Eastern Pangasinan**. I am a student from **3-E**, and I am continuously learning and improving my skills in technology and cloud computing.
+Hi! I'm **Jomel A. Jaurigue**, 22 years old, from Pangasinan and currently taking **Information Technology** at the **University of Eastern Pangasinan**. I am a student from **4-E**, and I am continuously learning and improving my skills in technology and cloud computing.
 
 I may still be learning many things, but I believe that every challenge is an opportunity to grow. Through this course, I hope to gain more knowledge, develop practical skills, and become more confident in working with cloud technologies.
 
@@ -26,5 +26,5 @@ I hope that this repository will not only show my completed activities but also 
 
 **Course:** CCM101 – Cloud Computing  
 **Name:** Jomel A. Jaurigue  
-**Year & Block:** 3-E  
+**Year & Block:** 4-E  
 **School:** University of Eastern Pangasinan
