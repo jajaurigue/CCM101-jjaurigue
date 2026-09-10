@@ -40,6 +40,6 @@ This command verifies that the stopped Nginx container no longer appears in the 
 docker rm nginx-server
 This command removes the stopped Nginx container from the Docker environment.
 
-#Summary
+Summary
 The activity demonstrated how Docker can be used to pull an image, deploy a containerized Nginx web server, test the application, and manage the container lifecycle. These commands provide basic skills needed for working with containerized applications in a cloud-native environment.
 The activity demonstrated how Docker can be used to pull an image, deploy a containerized Nginx web server, test the application, and manage the container lifecycle. These commands provide basic skills needed for working with containerized applications in a cloud-native environment.
