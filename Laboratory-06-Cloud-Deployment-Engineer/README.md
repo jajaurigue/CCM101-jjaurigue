@@ -23,7 +23,7 @@ docker-compose up -d
 docker-compose ps
 docker-compose down
 
-## Skills Learned
+Skills Learned
 Creating YAML configuration files
 Using Nano in a Linux terminal
 Deploying multiple containers with Docker Compose
