@@ -25,11 +25,11 @@ docker-compose down
 
 
 # Skills Learned
--Creating YAML configuration files
--Using Nano in a Linux terminal
--Deploying multiple containers with Docker Compose
--Understanding web and database tiers
--Using environment variables
--Verifying and managing containers
+Creating YAML configuration files
+Using Nano in a Linux terminal
+Deploying multiple containers with Docker Compose
+Understanding web and database tiers
+Using environment variables
+Verifying and managing containers
 Applying Infrastructure as Code principles
 Documenting cloud deployment activities with Markdown
