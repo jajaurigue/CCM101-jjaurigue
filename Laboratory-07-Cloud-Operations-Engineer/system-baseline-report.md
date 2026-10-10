@@ -3,16 +3,33 @@
 
 ## 1. Memory (RAM)
 
-- Total RAM: To be recorded from the actual terminal output using `free -h`.
+The server's memory information was collected using the `free -h` command.
+
+- Total RAM: 1.9 GiB
+- Used RAM: 414 Mi
+- Free RAM: 1.1 GiB
+- Available RAM: 1.5 GiB
+- Total Swap: 1.0 GiB
 
 ## 2. Disk Storage
 
-- Root (/) filesystem capacity: To be recorded from the actual terminal output using `df -h /`.
+The root filesystem's disk capacity was checked using the `df -h /` command.
+
+- Root Filesystem: `/dev/vda1`
+- Total Storage Capacity: 19G
+- Used Storage: 5.5G
+- Available Storage: 13G
+- Disk Usage: 30%
 
 ## 3. CPU and Running Processes
 
-- Monitoring command: `top`
-- Observation: To be recorded after checking the running processes and CPU activity.
+The `top` command was used to observe CPU activity and running processes.
+
+- CPU Idle: 100.0%
+- Load Average: 0.00, 0.00, 0.00
+- Total Tasks: 127
+- Running Tasks: 1
+- Available Memory: 1488.3 MiB
 
 ## 4. Importance of Disk Space Monitoring
 
