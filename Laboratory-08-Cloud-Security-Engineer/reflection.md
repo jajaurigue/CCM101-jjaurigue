@@ -1,1 +1,11 @@
+# Mission Reflection
 
+Completing this cloud security mission helped me understand why protecting a server is just as important as deploying an application. A host-based firewall provides an additional layer of security directly on the server. Even if an organization's physical network perimeter is breached, the firewall can still restrict incoming connections according to its rules. This helps prevent unauthorized access to services that should not be publicly available.
+
+Managing open network ports is critical because every exposed port may provide an entry point for an attacker. If unnecessary services are running and their ports are accessible, attackers have more opportunities to discover and exploit weaknesses. By using UFW and allowing only the ports required for SSH administration and the web application on port 8080, administrators can reduce the server's attack surface. The Default Deny policy also helps ensure that incoming connections are blocked unless they are explicitly permitted.
+
+Leaving a database port such as MySQL's port 3306 open to the public internet is dangerous. Attackers could attempt password attacks, exploit database vulnerabilities, or access sensitive information if security controls are weak. Database access should be restricted to trusted systems and authorized users, with strong authentication and other appropriate security measures.
+
+Before completing this mission, I understood that running a web server was an important part of deployment, but I now recognize that deployment must also include security configuration. Even a working application can be vulnerable if its network access is not controlled. I learned to check services, configure firewall rules carefully, and verify the results using terminal commands.
+
+My GitHub Cloud Computing portfolio demonstrates my progress in learning different cloud computing skills through the laboratory missions. Adding this security mission helps show that cloud engineering involves not only deploying and managing applications but also protecting infrastructure. I still need to keep practicing, reviewing my configurations, and documenting my work to improve my knowledge and prepare for real-world cloud computing tasks.
