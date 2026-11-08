@@ -1,29 +1,35 @@
 
 #!/bin/bash
+set -Eeuo pipefail
 
-# Enterprise Cloud Database Backup Script
+# CloudNova MariaDB backup script
 
-set -e
+BACKUP_DIR="/home/cloudadmin/cloudnova-backups"
+TIMESTAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+BACKUP_FILE="${BACKUP_DIR}/cloudnova_db_${TIMESTAMP}.sql.gz"
 
-BACKUP_DIR="./backups"
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-BACKUP_FILE="$BACKUP_DIR/database_backup_$TIMESTAMP.sql"
+: "${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD securely before running}"
 
-echo "Starting database backup..."
-
-# Create backup directory
 mkdir -p "$BACKUP_DIR"
+chmod 700 "$BACKUP_DIR"
 
-# Check if database container is running
-if ! docker compose ps --status running database | grep -q database; then
-    echo "ERROR: Database container is not running."
+echo "Starting CloudNova database backup..."
+
+if printf '%s' "$DB_ROOT_PASSWORD" | \
+  sudo docker exec -i cloudnova-database \
+  sh -c 'MYSQL_PWD="$(cat)" exec mariadb-dump -uroot cloudnova_db' \
+  | gzip > "$BACKUP_FILE"; then
+
+  if gzip -t "$BACKUP_FILE"; then
+    chmod 600 "$BACKUP_FILE"
+    echo "Backup completed: $BACKUP_FILE"
+  else
+    rm -f "$BACKUP_FILE"
+    echo "ERROR: Backup file failed validation." >&2
     exit 1
+  fi
+else
+  rm -f "$BACKUP_FILE"
+  echo "ERROR: Database backup failed." >&2
+  exit 1
 fi
-
-# Export MariaDB database
-docker compose exec -T database sh -c \
-'exec mariadb-dump -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"' \
-> "$BACKUP_FILE"
-
-echo "Backup completed successfully!"
-echo "Backup file: $BACKUP_FILE"
