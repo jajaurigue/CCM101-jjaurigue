@@ -1,5 +1,152 @@
 # CloudNova Operational Manual
 
+## 1. Introduction
+
+CloudNova is a multi-tier web application deployed on an Ubuntu Server virtual machine running in VirtualBox. Docker Compose manages the WordPress web application and MariaDB database. A Docker named volume provides persistent database storage, and a Bash script supports automated database backups.
+
+## 2. Infrastructure Architecture
+
+The infrastructure consists of:
+
+- **Host machine:** Windows laptop used to manage and access the virtual machine.
+- **Hypervisor:** VirtualBox.
+- **Server:** Ubuntu Server running Docker Engine.
+- **Firewall:** UFW controls host-level network access.
+- **Application tier:** WordPress serves the website.
+- **Database tier:** MariaDB stores WordPress data.
+- **Persistent storage:** A Docker named volume stores database files.
+- **Backup automation:** Bash and cron support scheduled database backups.
+
+## 3. Prerequisites
+
+Before deployment, ensure that:
+
+- The CloudNova Ubuntu Server VM is available.
+- Docker and the Docker Compose plugin are installed.
+- The project configuration has been copied to the server.
+- Required credentials are securely configured.
+- VirtualBox port forwarding is configured for the web application.
+- Firewall rules allow only the required network traffic.
+
+## 4. Deploy the Application
+
+Open the Ubuntu Server terminal and enter the project directory:
+
+```bash
+cd ~/cloudnova-stack
+```
+
+Start the application:
+
+```bash
+sudo docker compose up -d
+```
+
+Check the container status:
+
+```bash
+sudo docker compose ps
+```
+
+Confirm that WordPress and MariaDB are running.
+
+## 5. Access the Website
+
+Open a browser on the Windows host and visit:
+
+`http://127.0.0.1:8082`
+
+This address depends on VirtualBox forwarding host port 8082 to guest port 8082. The VM and containers must be running.
+
+## 6. Monitor Containers and Logs
+
+Check container status:
+
+```bash
+cd ~/cloudnova-stack
+sudo docker compose ps
+```
+
+View recent WordPress logs:
+
+```bash
+sudo docker compose logs --tail=50 wordpress
+```
+
+View recent MariaDB logs:
+
+```bash
+sudo docker compose logs --tail=50 database
+```
+
+Review the output for startup errors, database connection failures, or other problems.
+
+## 7. Stop and Restart Services
+
+Restart both containers:
+
+```bash
+sudo docker compose restart
+```
+
+Stop the application containers:
+
+```bash
+sudo docker compose down
+```
+
+Start the application again:
+
+```bash
+sudo docker compose up -d
+```
+
+Do not use `docker compose down -v` during routine maintenance. Removing the named volume can delete the database data.
+
+## 8. Firewall and Network Security
+
+Check UFW status:
+
+```bash
+sudo ufw status verbose
+```
+
+The firewall should be active with incoming connections denied by default. Allow only necessary services, including SSH if remote administration is required, and the web ports required by the actual deployment.
+
+Do not expose MariaDB port 3306 publicly. WordPress should connect to MariaDB through the internal Docker network.
+
+**Important:** Docker-published ports can bypass some UFW filtering. Review Docker networking and firewall behavior separately. A UFW status screenshot alone does not prove that all traffic is blocked correctly.
+
+## 9. Persistent Storage
+
+The database uses a Docker named volume mounted at `/var/lib/mysql`. This keeps database files outside the database container's writable layer.
+
+List Docker volumes:
+
+```bash
+sudo docker volume ls
+```
+
+Inspect the database container's mounts:
+
+```bash
+sudo docker inspect cloudnova-database
+```
+
+Check the `Mounts` section to verify that the database directory is backed by the expected volume.
+
+After restarting the containers, verify that previously created WordPress posts or other test data remain available.
+
+Persistent storage protects against container replacement, but it does not replace backups.
+
+## 10. Database Backup
+
+The backup script should create a timestamped, compressed SQL backup in:
+
+`/home/cloudadmin/cloudnova-backups`
+
+Check the backup directory:
+
 ```bash
 sudo ls -lh /home/cloudadmin/cloudnova-backups
 ```
