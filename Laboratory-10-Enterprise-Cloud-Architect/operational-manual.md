@@ -1,126 +1,79 @@
-# Enterprise Cloud Infrastructure – Operational Manual
-
-## 1. Project Overview
-
-This project deploys a multi-tier cloud application using Docker Compose. It uses Nextcloud as the web application and MariaDB as its database service.
-
-## 2. Infrastructure Components
-
-- Host Machine: Computer used to manage the virtual machine.
-- Hypervisor: Software used to run the Linux virtual machine.
-- Linux Server: Ubuntu Server hosting the application.
-- Firewall: UFW for controlling incoming network traffic.
-- Docker: Container platform for running the services.
-- Nextcloud: Web-based file management application.
-- MariaDB: Database service for Nextcloud.
-
-## 3. Application Deployment
-
-The application uses Docker Compose to deploy two connected services:
-
-1. MariaDB database container.
-2. Nextcloud application container.
-
-The database and application data are stored in persistent Docker volumes.
-
-To start the application:
+# CloudNova Operational Manual
 
 ```bash
-docker compose up -d
+sudo ls -lh /home/cloudadmin/cloudnova-backups
 ```
 
-To check running containers:
+Verify that a backup file exists and is not empty. Test its gzip integrity:
 
 ```bash
-docker compose ps
+gzip -t /path/to/backup.sql.gz
 ```
 
-To view application logs:
+Replace the example path with the actual backup filename.
+
+The backup script requires database credentials and Docker access. Supply credentials securely; never place real passwords in this repository.
+
+## 11. Automated Backup Schedule
+
+Check the root user's cron schedule:
 
 ```bash
-docker compose logs -f
+sudo crontab -l
 ```
 
-## 4. Application Access
+The configured schedule is intended to run the backup every day at 2:00 AM.
 
-When the application is running and the VM network is configured correctly, access Nextcloud through:
-
-```text
-http://SERVER_IP:8080
-```
-
-Replace SERVER_IP with the actual IP address of the Ubuntu Server.
-
-## 5. Firewall Security
-
-UFW is used to protect the Ubuntu Server.
-
-The intended firewall policy is:
-
-- Enable UFW.
-- Deny incoming connections by default.
-- Allow outgoing connections by default.
-- Allow SSH access for administration.
-- Allow port 8080 for Nextcloud access.
-
-Only the ports required by the application and administration should be exposed.
-
-## 6. Backup and Automation
-
-The `automation-script.sh` file creates a timestamped MariaDB database backup.
-
-To make the script executable:
+Check the backup log, if configured:
 
 ```bash
-chmod +x automation-script.sh
+sudo tail -n 50 /home/cloudadmin/cloudnova-backups/backup.log
 ```
 
-To run the backup manually:
+Confirm that the cron job can access the required credentials and Docker commands. Cron does not automatically inherit environment variables from an interactive terminal, so credentials must be made available through an appropriately protected configuration.
 
-```bash
-./automation-script.sh
-```
+## 12. Recovery Procedure
 
-Cron can be configured to execute the backup script automatically at a scheduled time.
+1. Identify the most recent valid backup.
+2. Preserve a copy of the current database before restoring.
+3. Verify the backup file with `gzip -t`.
+4. Restore the SQL dump into the intended database using the correct credentials and a tested recovery procedure.
+5. Restart or reconnect the application if necessary.
+6. Confirm that WordPress loads and that expected data is present.
 
-## 7. Maintenance Commands
+Restoration can overwrite existing database contents. Test recovery in a safe environment before using it on important data.
 
-Check container status:
+## 13. Routine Maintenance
 
-```bash
-docker compose ps
-```
+- Check container status and logs.
+- Verify that scheduled backups complete successfully.
+- Monitor available disk space.
+- Keep Ubuntu, Docker, WordPress, and MariaDB updated.
+- Test database restoration periodically.
+- Restrict administrative access.
+- Store backup copies securely outside the VM when possible.
 
-Restart the application:
+## 14. Troubleshooting
 
-```bash
-docker compose restart
-```
+### Website does not open
+Check that the VM is running, verify VirtualBox port forwarding, and inspect the container status.
 
-Stop the application:
+### WordPress cannot connect to MariaDB
+Review both services' logs and verify the database hostname, database name, username, and credentials.
 
-```bash
-docker compose down
-```
+### Backup fails
+Check script permissions, Docker access, credentials, available disk space, and the backup log.
 
-Check firewall status:
+### Data appears missing
+Verify that the expected Docker named volume is attached to the database container. Avoid deleting volumes until the problem has been investigated.
 
-```bash
-sudo ufw status verbose
-```
+### Firewall blocks access
+Review the active UFW rules, VirtualBox forwarding, and Docker network configuration. Do not open unnecessary ports.
 
-## 8. Data Persistence
+## 15. Security Recommendations
 
-Docker named volumes are configured for the MariaDB database and Nextcloud application data. These volumes help preserve data when containers are recreated.
-
-## 9. Security Reminders
-
-- Do not upload passwords or secret credentials to GitHub.
-- Use strong passwords for database accounts.
-- Keep Ubuntu and Docker updated.
-- Expose only necessary network ports.
-- Verify backups regularly.
-
-## 10. Conclusion
-
-This operational manual provides the basic procedures for deploying, accessing, securing, backing up, and maintaining the enterprise cloud infrastructure.
+- Never commit real passwords or private keys to GitHub.
+- Keep MariaDB accessible only to the application and authorized administrators.
+- Allow only required inbound ports.
+- Protect backup files with restrictive permissions.
+- Keep a separate, protected copy of importa
