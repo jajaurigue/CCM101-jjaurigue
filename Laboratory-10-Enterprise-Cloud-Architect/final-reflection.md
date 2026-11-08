@@ -1,25 +1,7 @@
-# Final Reflection – Laboratory Activities 1–10
+# Final Reflection: Missions 1–10
 
-Throughout the ten laboratory activities in CCM101 – Cloud Computing, I gained knowledge and practical experience in understanding, building, deploying, managing, and securing cloud infrastructure.
+Throughout Missions 1–10, I learned many things about cloud computing and how different technologies work together to build and manage an infrastructure. Each mission helped me understand important topics such as Linux administration, Docker, cloud storage, infrastructure management, system security, and automation. I also gained practical experience in using Ubuntu Server, VirtualBox, Docker Compose, Nextcloud, and MariaDB. Other tasks allowed me to practice configuring firewall rules, managing persistent storage, and creating a Bash script for database backups using Cron.
 
-In Laboratory Activities 1–2, I learned the fundamentals of cloud computing and the importance of planning and understanding cloud infrastructure before implementation. These activities helped me recognize how cloud services support modern applications and organizations.
+While completing these activities, I realized that managing a cloud system requires more than just installing and running applications. It is also important to protect the system, make sure data is stored properly, and prepare backups in case problems occur. I experienced some difficulties with commands, configurations, and troubleshooting, but solving these problems helped me understand how each component works. I also learned that testing services, checking system logs, and following proper documentation are important parts of maintaining a reliable infrastructure.
 
-In Laboratory Activity 3, I explored different cloud platforms, including Amazon Web Services, Microsoft Azure, and Google Cloud Platform. I learned that each provider offers different services and features that can support various computing requirements.
-
-In Laboratory Activities 4–6, I gained experience with cloud-native concepts, data management, and application deployment. I learned how applications and databases work together and why proper configuration and persistent storage are important.
-
-In Laboratory Activities 7–8, I developed a better understanding of cloud operations and security. I experienced managing services, checking system status, configuring firewall rules, and applying security practices to protect a server.
-
-In Laboratory Activity 9, I explored automation using Linux commands, Bash scripting, and Cron. I learned that repetitive administrative tasks can be automated to improve efficiency and reduce manual work.
-
-Finally, in Laboratory Activity 10, I combined the knowledge and skills from the previous activities to design an enterprise cloud infrastructure. This activity introduced me to connecting application and database containers using Docker Compose, planning firewall rules, creating backup automation, and documenting operational procedures.
-
-One of the most important lessons I learned is that building a cloud infrastructure requires more than simply making an application run. It also requires proper planning, security, data persistence, automation, monitoring, and documentation.
-
-Although I encountered challenges during the laboratory activities, troubleshooting each problem helped me become more patient, independent, and confident in using cloud technologies. I also realized the importance of understanding every command and configuration instead of simply copying instructions.
-
-Overall, CCM101 helped me develop practical cloud computing skills that I can use in future academic projects and professional work. I will continue improving my knowledge and exploring cloud technologies as I prepare for future opportunities in the field of Information Technology.
-
-**Prepared by:**  
-JAURIGUE, JOMEL A.  
-**Year/Block:** 4-E
+Overall, Missions 1–10 gave me a valuable learning experience because I was able to apply the concepts through actual hands-on activities. The CloudNova project helped me combine the knowledge and skills I gained from the previous missions into one enterprise cloud infrastructure. These activities improved my confidence in using Linux, Docker, and other cloud technologies. I believe that what I learned will help me in future school projects and prepare me for more advanced tasks related to cloud computing and system administration.
